@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Preferences</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planora</h1>
+            <p class="tagline">Your Smart Daily Scheduler</p>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="main-content">
+            <div class="form-card">
+                <h2>Step 3: Daily Preferences</h2>
+                <p class="form-description">Set your day start/end times and meal breaks to optimize your schedule.</p>
+                
+                <form action="{{ url_for('preferences') }}" method="post" id="preferences-form">
+                    <div class="form-progress">
+                        <div class="progress-step completed">Fixed Tasks</div>
+                        <div class="progress-step completed">Variable Tasks</div>
+                        <div class="progress-step active">Preferences</div>
+                        <div class="progress-step">Schedule</div>
+                    </div>
+                    
+                    <div class="preferences-section">
+                        <h3>Day Boundaries</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="day_start">Day Start Time</label>
+                                <input type="time" id="day_start" name="day_start" required value="07:00">
+                            </div>
+                            <div class="form-group">
+                                <label for="day_end">Day End Time</label>
+                                <input type="time" id="day_end" name="day_end" required value="22:00">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="preferences-section">
+                        <h3>Meal Breaks</h3>
+                        <div class="meal-break">
+                            <h4>Breakfast</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="breakfast_time">Time</label>
+                                    <input type="time" id="breakfast_time" name="breakfast_time" required value="08:00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="breakfast_duration">Duration (minutes)</label>
+                                    <input type="number" id="breakfast_duration" name="breakfast_duration" required min="15" max="120" step="5" value="30">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="meal-break">
+                            <h4>Lunch</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="lunch_time">Time</label>
+                                    <input type="time" id="lunch_time" name="lunch_time" required value="13:00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lunch_duration">Duration (minutes)</label>
+                                    <input type="number" id="lunch_duration" name="lunch_duration" required min="15" max="120" step="5" value="60">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="meal-break">
+                            <h4>Dinner</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dinner_time">Time</label>
+                                    <input type="time" id="dinner_time" name="dinner_time" required value="19:00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dinner_duration">Duration (minutes)</label>
+                                    <input type="number" id="dinner_duration" name="dinner_duration" required min="15" max="120" step="5" value="60">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <a href="{{ url_for('variable_tasks') }}" class="secondary-button">Back</a>
+                        <button type="submit" class="primary-button">Generate Schedule</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Planora</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

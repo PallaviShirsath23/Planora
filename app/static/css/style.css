@@ -1,0 +1,513 @@
+/* Main Styles for Planora Scheduler Application */
+
+:root {
+    --primary-color: #4a6fa5;
+    --primary-dark: #3a5985;
+    --secondary-color: #f5a742;
+    --text-color: #333;
+    --light-text: #666;
+    --background-color: #f5f8fa;
+    --card-bg: #ffffff;
+    --border-color: #ddd;
+    --success-color: #5cb85c;
+    --break-color: #f5c6aa;
+    --fixed-color: #c3d9ff;
+    --variable-color: #d4f3ce;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+}
+
+header .tagline {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content Styles */
+.main-content {
+    padding: 30px;
+}
+
+/* Welcome Page Styles */
+.welcome-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.welcome-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.welcome-card p {
+    margin-bottom: 15px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px 0;
+    gap: 20px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    padding: 20px;
+    width: 275px;
+    text-align: left;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.step-number {
+    background-color: var(--primary-color);
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.step-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.cta-container {
+    margin: 30px 0 10px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.cta-button:hover {
+    background-color: #e69a32;
+    transform: translateY(-2px);
+}
+
+/* Form Styles */
+.form-card {
+    padding: 20px;
+}
+
+.form-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.form-description {
+    margin-bottom: 25px;
+}
+
+.form-progress {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.form-progress::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    height: 2px;
+    background-color: var(--border-color);
+    width: 100%;
+    z-index: 1;
+}
+
+.progress-step {
+    position: relative;
+    z-index: 2;
+    background-color: white;
+    padding: 0 15px;
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.progress-step.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.progress-step.completed {
+    color: var(--success-color);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-hint {
+    font-size: 0.8rem;
+    color: var(--light-text);
+    margin-top: 3px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.task-input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--background-color);
+    border-radius: 5px;
+    position: relative;
+}
+
+.task-input-group .form-group {
+    flex: 1;
+    min-width: 150px;
+    margin-bottom: 0;
+}
+
+.remove-task-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #d9534f;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.remove-task-btn:hover {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.secondary-button {
+    display: inline-block;
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid var(--primary-color);
+    transition: background-color 0.3s;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.secondary-button:hover {
+    background-color: #e9ecef;
+}
+
+.primary-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.primary-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Preferences Styles */
+.preferences-section {
+    margin-bottom: 30px;
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.preferences-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.meal-break {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.meal-break h4 {
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+}
+
+/* Schedule Display Styles */
+.schedule-card {
+    padding: 20px;
+}
+
+.schedule-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.schedule-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.control-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.control-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.control-button:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+}
+
+.current-date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+}
+
+.timeline {
+    position: relative;
+    margin: 40px 0;
+    padding: 20px 0;
+    border-left: 2px solid var(--primary-color);
+    min-height: 500px;
+}
+
+.timeline-item {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-color: var(--fixed-color);
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 15px;
+    top: calc((var(--start-time) - 7) * 50px + 20px); /* 7 is day start, 50px per hour */
+    height: calc((var(--end-time) - var(--start-time)) * 50px);
+    min-height: 40px;
+    transition: all 0.3s;
+}
+
+.timeline-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item.break {
+    background-color: var(--break-color);
+}
+
+.timeline-item.fixed {
+    background-color: var(--fixed-color);
+}
+
+.timeline-item.variable {
+    background-color: var(--variable-color);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.timeline-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.task-time {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    margin-bottom: 3px;
+}
+
+.task-name {
+    font-weight: 600;
+}
+
+.no-tasks {
+    padding: 20px;
+    text-align: center;
+    color: var(--light-text);
+    font-style: italic;
+    background-color: var(--background-color);
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.schedule-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Footer Styles */
+footer {
+    padding: 20px;
+    text-align: center;
+    color: var(--light-text);
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .steps {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .task-input-group {
+        flex-direction: column;
+    }
+    
+    .timeline-item {
+        margin-left: 10px;
+    }
+}

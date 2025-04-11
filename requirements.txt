@@ -1,0 +1,4 @@
+Flask==2.2.3
+Flask-WTF==1.1.1
+python-dateutil==2.8.2
+WTForms==3.0.1

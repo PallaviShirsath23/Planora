@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Smart Daily Scheduler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planora</h1>
+            <p class="tagline">Your Smart Daily Scheduler</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="welcome-card">
+                <h2>Welcome to Planora!</h2>
+                <p>Planora helps you balance your daily fixed commitments (like study hours) with variable tasks (like classes and submissions).</p>
+                <p>Create your optimized daily schedule in 3 simple steps:</p>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Enter Fixed Tasks</h3>
+                            <p>Tasks you need to do for a fixed duration every day (e.g., 6 hours of study)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Add Variable Tasks</h3>
+                            <p>Tasks with specific dates/times (e.g., classes, submissions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Set Preferences</h3>
+                            <p>Your day start/end times and meal breaks</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cta-container">
+                    <a href="{{ url_for('fixed_tasks') }}" class="cta-button">Get Started</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Planora</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

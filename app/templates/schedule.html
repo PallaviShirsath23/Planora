@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Your Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planora</h1>
+            <p class="tagline">Your Smart Daily Scheduler</p>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="main-content">
+            <div class="schedule-card">
+                <h2>Your Optimized Schedule</h2>
+                
+                <div class="form-progress">
+                    <div class="progress-step completed">Fixed Tasks</div>
+                    <div class="progress-step completed">Variable Tasks</div>
+                    <div class="progress-step completed">Preferences</div>
+                    <div class="progress-step completed">Schedule</div>
+                </div>
+                
+                <div class="schedule-controls">
+                    <button id="prev-day" class="control-button">Previous Day</button>
+                    <div id="current-date" class="current-date"></div>
+                    <button id="next-day" class="control-button">Next Day</button>
+                </div>
+                
+                <div id="schedule-container">
+                    {% for date, daily_schedule in schedule.items() %}
+                        <div class="daily-schedule" data-date="{{ date }}" style="display: none;">
+                            {% if daily_schedule %}
+                                <div class="timeline">
+                                    {% for task in daily_schedule %}
+                                        <div class="timeline-item {{ task.type if 'type' in task else 'break' }}" 
+                                             style="--start-time: {{ task.start.strftime('%H.%M') | float }}; 
+                                                    --end-time: {{ task.end.strftime('%H.%M') | float }};">
+                                            <div class="timeline-content">
+                                                <div class="task-time">
+                                                    {{ task.start.strftime('%H:%M') }} - {{ task.end.strftime('%H:%M') }}
+                                                </div>
+                                                <div class="task-name">{{ task.name }}</div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="no-tasks">No tasks scheduled for this day.</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="schedule-actions">
+                    <a href="{{ url_for('preferences') }}" class="secondary-button">Back to Preferences</a>
+                    <a href="{{ url_for('index') }}" class="primary-button">Create New Schedule</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Planora</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all available dates
+            const scheduleDivs = document.querySelectorAll('.daily-schedule');
+            const dates = Array.from(scheduleDivs).map(div => div.dataset.date);
+            
+            if (dates.length === 0) {
+                return; // No schedule data
+            }
+            
+            // Set up date navigation
+            let currentDateIndex = 0;
+            const currentDateDisplay = document.getElementById('current-date');
+            
+            function updateVisibleSchedule() {
+                // Hide all schedules
+                scheduleDivs.forEach(div => div.style.display = 'none');
+                
+                // Show current date's schedule
+                const currentDate = dates[currentDateIndex];
+                document.querySelector(`.daily-schedule[data-date="${currentDate}"]`).style.display = 'block';
+                
+                // Format and display current date
+                const dateObj = new Date(currentDate);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                currentDateDisplay.textContent = dateObj.toLocaleDateString('en-US', options);
+                
+                // Update button states
+                document.getElementById('prev-day').disabled = currentDateIndex === 0;
+                document.getElementById('next-day').disabled = currentDateIndex === dates.length - 1;
+            }
+            
+            // Set up button handlers
+            document.getElementById('prev-day').addEventListener('click', function() {
+                if (currentDateIndex > 0) {
+                    currentDateIndex--;
+                    updateVisibleSchedule();
+                }
+            });
+            
+            document.getElementById('next-day').addEventListener('click', function() {
+                if (currentDateIndex < dates.length - 1) {
+                    currentDateIndex++;
+                    updateVisibleSchedule();
+                }
+            });
+            
+            // Initialize the display
+            updateVisibleSchedule();
+        });
+    </script>
+</body>
+</html>

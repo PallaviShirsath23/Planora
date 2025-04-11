@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Fixed Tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planora</h1>
+            <p class="tagline">Your Smart Daily Scheduler</p>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="main-content">
+            <div class="form-card">
+                <h2>Step 1: Fixed Daily Tasks</h2>
+                <p class="form-description">Enter tasks that you need to do for a fixed amount of time every day, like studying or exercise.</p>
+                
+                <form action="{{ url_for('fixed_tasks') }}" method="post" id="fixed-tasks-form">
+                    <div class="form-progress">
+                        <div class="progress-step active">Fixed Tasks</div>
+                        <div class="progress-step">Variable Tasks</div>
+                        <div class="progress-step">Preferences</div>
+                        <div class="progress-step">Schedule</div>
+                    </div>
+                    
+                    <div id="fixed-tasks-container">
+                        <div class="task-input-group">
+                            <div class="form-group">
+                                <label for="task_name_0">Task Name</label>
+                                <input type="text" id="task_name_0" name="task_name" required placeholder="e.g., Study Mathematics">
+                            </div>
+                            <div class="form-group">
+                                <label for="task_hours_0">Hours per Day</label>
+                                <input type="number" id="task_hours_0" name="task_hours" required min="0.5" max="24" step="0.5" placeholder="e.g., 2.5">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="add-fixed-task" class="secondary-button">+ Add Another Task</button>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">Next: Variable Tasks</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Planora</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let taskCounter = 1;
+            
+            document.getElementById('add-fixed-task').addEventListener('click', function() {
+                const container = document.getElementById('fixed-tasks-container');
+                const newTaskGroup = document.createElement('div');
+                newTaskGroup.className = 'task-input-group';
+                
+                newTaskGroup.innerHTML = `
+                    <div class="form-group">
+                        <label for="task_name_${taskCounter}">Task Name</label>
+                        <input type="text" id="task_name_${taskCounter}" name="task_name" required placeholder="e.g., Study Mathematics">
+                    </div>
+                    <div class="form-group">
+                        <label for="task_hours_${taskCounter}">Hours per Day</label>
+                        <input type="number" id="task_hours_${taskCounter}" name="task_hours" required min="0.5" max="24" step="0.5" placeholder="e.g., 2.5">
+                    </div>
+                    <button type="button" class="remove-task-btn" aria-label="Remove task">×</button>
+                `;
+                
+                container.appendChild(newTaskGroup);
+                taskCounter++;
+                
+                // Add event listener to the new remove button
+                newTaskGroup.querySelector('.remove-task-btn').addEventListener('click', function() {
+                    container.removeChild(newTaskGroup);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

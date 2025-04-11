@@ -1,0 +1,1 @@
+{"day_start": "07:00", "day_end": "22:00", "breaks": {"breakfast": {"start": "08:00", "duration": 30}, "lunch": {"start": "13:00", "duration": 60}, "dinner": {"start": "19:00", "duration": 60}}}

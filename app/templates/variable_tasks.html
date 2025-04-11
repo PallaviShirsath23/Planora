@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planora - Variable Tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Planora</h1>
+            <p class="tagline">Your Smart Daily Scheduler</p>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="main-content">
+            <div class="form-card">
+                <h2>Step 2: Variable Tasks</h2>
+                <p class="form-description">Enter tasks that occur on specific dates or times, like classes, meetings, or submission deadlines.</p>
+                
+                <form action="{{ url_for('variable_tasks') }}" method="post" id="variable-tasks-form">
+                    <div class="form-progress">
+                        <div class="progress-step completed">Fixed Tasks</div>
+                        <div class="progress-step active">Variable Tasks</div>
+                        <div class="progress-step">Preferences</div>
+                        <div class="progress-step">Schedule</div>
+                    </div>
+                    
+                    <div id="variable-tasks-container">
+                        <div class="task-input-group">
+                            <div class="form-group">
+                                <label for="task_name_0">Task Name</label>
+                                <input type="text" id="task_name_0" name="task_name" required placeholder="e.g., Math Class">
+                            </div>
+                            <div class="form-group">
+                                <label for="task_date_0">Date</label>
+                                <input type="date" id="task_date_0" name="task_date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="task_time_0">Time (optional)</label>
+                                <input type="time" id="task_time_0" name="task_time" placeholder="e.g., 14:30">
+                                <div class="form-hint">Leave blank if flexible</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="task_duration_0">Duration (hours)</label>
+                                <input type="number" id="task_duration_0" name="task_duration" required min="0.25" max="24" step="0.25" placeholder="e.g., 1.5">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="add-variable-task" class="secondary-button">+ Add Another Task</button>
+                    
+                    <div class="form-actions">
+                        <a href="{{ url_for('fixed_tasks') }}" class="secondary-button">Back</a>
+                        <button type="submit" class="primary-button">Next: Preferences</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 Planora</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let taskCounter = 1;
+            
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('task_date_0').value = today;
+            
+            document.getElementById('add-variable-task').addEventListener('click', function() {
+                const container = document.getElementById('variable-tasks-container');
+                const newTaskGroup = document.createElement('div');
+                newTaskGroup.className = 'task-input-group';
+                
+                newTaskGroup.innerHTML = `
+                    <div class="form-group">
+                        <label for="task_name_${taskCounter}">Task Name</label>
+                        <input type="text" id="task_name_${taskCounter}" name="task_name" required placeholder="e.g., Math Class">
+                    </div>
+                    <div class="form-group">
+                        <label for="task_date_${taskCounter}">Date</label>
+                        <input type="date" id="task_date_${taskCounter}" name="task_date" required value="${today}">
+                    </div>
+                    <div class="form-group">
+                        <label for="task_time_${taskCounter}">Time (optional)</label>
+                        <input type="time" id="task_time_${taskCounter}" name="task_time" placeholder="e.g., 14:30">
+                        <div class="form-hint">Leave blank if flexible</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="task_duration_${taskCounter}">Duration (hours)</label>
+                        <input type="number" id="task_duration_${taskCounter}" name="task_duration" required min="0.25" max="24" step="0.25" placeholder="e.g., 1.5">
+                    </div>
+                    <button type="button" class="remove-task-btn" aria-label="Remove task">×</button>
+                `;
+                
+                container.appendChild(newTaskGroup);
+                taskCounter++;
+                
+                // Add event listener to the new remove button
+                newTaskGroup.querySelector('.remove-task-btn').addEventListener('click', function() {
+                    container.removeChild(newTaskGroup);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
