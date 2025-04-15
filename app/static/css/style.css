@@ -1,19 +1,19 @@
-/* Main Styles for Planora Scheduler Application - SpongeBob Theme */
+/* Main Styles for Planora Scheduler Application - Flowery Theme */
 
 :root {
-    --primary-color: #FED513; /* SpongeBob yellow */
-    --primary-dark: #F5C400;
-    --secondary-color: #E84646; /* Crab red */
-    --text-color: #2A3747;
+    --primary-color: #E8A0BF; /* Soft pink */
+    --primary-dark: #D8709C;
+    --secondary-color: #8BC34A; /* Fresh green */
+    --text-color: #4A4A4A;
     --light-text: #666;
-    --background-color: #96DFFF; /* Ocean blue */
+    --background-color: #F9F1F7; /* Light pastel background */
     --card-bg: #ffffff;
     --border-color: #ddd;
     --success-color: #5cb85c;
-    --break-color: #FF9A6C; /* Patrick color */
-    --fixed-color: #FED513; /* SpongeBob yellow */
-    --variable-color: #00A170; /* Squidward green-ish */
-    --sand-color: #F9E4AD; /* Sandy/beach sand color */
+    --break-color: #FFD3E0; /* Light pink */
+    --fixed-color: #D4EDDA; /* Light green */
+    --variable-color: #BBDEFB; /* Light blue */
+    --accent-color: #FFC107; /* Yellow for flower centers */
 }
 
 * {
@@ -23,13 +23,13 @@
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+    font-family: 'Quicksand', 'Segoe UI', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
     padding: 20px;
-    background-image: url('https://raw.githubusercontent.com/user/repo/main/bubbles.png'), 
-                      linear-gradient(to bottom, #96DFFF, #4BAEE3);
+    background-image: url('../img/flowers.png'), 
+                      linear-gradient(to bottom, #F9F1F7, #F0E6F5);
     background-repeat: repeat;
     background-attachment: fixed;
 }
@@ -38,19 +38,38 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     background-color: var(--card-bg);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border: 4px solid var(--primary-color);
+    position: relative;
+}
+
+.container::before {
+    content: "🌸";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    font-size: 30px;
+    transform: rotate(-15deg);
+}
+
+.container::after {
+    content: "🌷";
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    font-size: 30px;
+    transform: rotate(15deg);
 }
 
 /* Header Styles */
 header {
     background-color: var(--primary-color);
-    color: var(--text-color);
+    color: white;
     padding: 20px 30px;
     text-align: center;
-    background-image: linear-gradient(to bottom, var(--primary-color), #FBCE2D);
+    background-image: linear-gradient(to bottom, var(--primary-color), #F0B6D2);
     position: relative;
     overflow: hidden;
 }
@@ -64,24 +83,24 @@ header::before {
     height: 20px;
     background: repeating-linear-gradient(
         45deg,
-        var(--sand-color),
-        var(--sand-color) 10px,
-        #F5D68E 10px,
-        #F5D68E 20px
+        #FFFFFF33,
+        #FFFFFF33 10px,
+        #FFFFFF22 10px,
+        #FFFFFF22 20px
     );
 }
 
 header h1 {
     font-size: 2.8rem;
     margin-bottom: 5px;
-    text-shadow: 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
     letter-spacing: 1px;
 }
 
 header .tagline {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #E84646; /* Crab red */
+    color: #FFF;
 }
 
 nav ul {
@@ -92,7 +111,7 @@ nav ul {
 }
 
 nav ul li a {
-    color: var(--text-color);
+    color: white;
     text-decoration: none;
     padding: 5px 15px;
     border-radius: 20px;
@@ -101,7 +120,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
 
@@ -121,11 +140,12 @@ nav ul li a:hover {
     height: 15px;
     background: repeating-linear-gradient(
         45deg,
-        var(--sand-color),
-        var(--sand-color) 10px,
-        #F5D68E 10px,
-        #F5D68E 20px
+        var(--primary-color),
+        var(--primary-color) 10px,
+        #F0B6D2 10px,
+        #F0B6D2 20px
     );
+    opacity: 0.3;
 }
 
 /* Welcome Page Styles */
@@ -135,11 +155,11 @@ nav ul li a:hover {
 }
 
 .welcome-card h2 {
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     margin-bottom: 20px;
     font-size: 2rem;
     text-transform: uppercase;
-    text-shadow: 1px 1px 0 var(--primary-color);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
 }
 
 .welcome-card p {
@@ -161,18 +181,31 @@ nav ul li a:hover {
 .step {
     display: flex;
     align-items: flex-start;
-    background-color: var(--sand-color);
-    border-radius: 10px;
+    background-color: #FFF8FB;
+    border-radius: 15px;
     padding: 20px;
     width: 275px;
     text-align: left;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    border: 2px dashed var(--primary-color);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--primary-color);
     transition: transform 0.2s;
+    position: relative;
+    overflow: hidden;
 }
 
 .step:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.step::before {
+    content: "🌼";
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    font-size: 24px;
+    opacity: 0.3;
+    transform: rotate(15deg);
 }
 
 .step-number {
@@ -192,7 +225,7 @@ nav ul li a:hover {
 }
 
 .step-content h3 {
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     margin-bottom: 10px;
     font-size: 1.3rem;
 }
@@ -210,24 +243,44 @@ nav ul li a:hover {
     text-decoration: none;
     font-weight: bold;
     transition: transform 0.2s, background-color 0.3s;
-    border: 3px solid #C62F2F;
+    border: 3px solid #7AB03A;
     font-size: 1.1rem;
     cursor: pointer;
     text-transform: uppercase;
-    box-shadow: 0 4px 0 #C62F2F;
+    box-shadow: 0 4px 0 #7AB03A;
     position: relative;
     top: 0;
+    animation: float 3s ease-in-out infinite;
+    position: relative;
 }
 
 .cta-button:hover {
-    background-color: #FF5252;
+    background-color: #9AD74E;
     transform: translateY(-2px);
-    box-shadow: 0 6px 0 #C62F2F;
+    box-shadow: 0 6px 0 #7AB03A;
 }
 
 .cta-button:active {
     top: 4px;
-    box-shadow: 0 0 0 #C62F2F;
+    box-shadow: 0 0 0 #7AB03A;
+}
+
+.cta-button::before {
+    content: "🌺";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.cta-button::after {
+    content: "🌺";
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
 }
 
 /* Form Styles */
@@ -236,10 +289,10 @@ nav ul li a:hover {
 }
 
 .form-card h2 {
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     margin-bottom: 20px;
     font-size: 1.8rem;
-    text-shadow: 1px 1px 0 var(--primary-color);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
 }
 
 .form-description {
@@ -259,7 +312,7 @@ nav ul li a:hover {
     position: absolute;
     top: 14px;
     height: 4px;
-    background-color: var(--sand-color);
+    background-color: #FFE9F3;
     width: 100%;
     z-index: 1;
 }
@@ -271,12 +324,12 @@ nav ul li a:hover {
     padding: 0 15px;
     font-size: 1rem;
     color: var(--light-text);
-    border: 2px solid var(--sand-color);
+    border: 2px solid #FFE9F3;
     border-radius: 20px;
 }
 
 .progress-step.active {
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     font-weight: bold;
     border-color: var(--primary-color);
 }
@@ -294,7 +347,7 @@ nav ul li a:hover {
     display: block;
     margin-bottom: 5px;
     font-weight: 600;
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     font-size: 1.1rem;
 }
 
@@ -304,8 +357,8 @@ nav ul li a:hover {
     border: 2px solid var(--primary-color);
     border-radius: 8px;
     font-size: 1rem;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
-    background-color: #FFF8DC;
+    font-family: 'Quicksand', 'Segoe UI', sans-serif;
+    background-color: #FFF8FB;
 }
 
 .form-hint {
@@ -331,10 +384,10 @@ nav ul li a:hover {
     align-items: flex-start;
     margin-bottom: 20px;
     padding: 20px;
-    background-color: var(--sand-color);
-    border-radius: 10px;
+    background-color: #FFF8FB;
+    border-radius: 15px;
     position: relative;
-    border: 2px dashed var(--primary-color);
+    border: 2px solid var(--primary-color);
 }
 
 .task-input-group .form-group {
@@ -347,8 +400,8 @@ nav ul li a:hover {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: rgba(232, 70, 70, 0.2);
-    color: var(--secondary-color);
+    background-color: rgba(232, 70, 70, 0.1);
+    color: #E84646;
     border: none;
     width: 30px;
     height: 30px;
@@ -359,23 +412,23 @@ nav ul li a:hover {
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    border: 2px solid var(--secondary-color);
+    border: 2px solid #E84646;
 }
 
 .remove-task-btn:hover {
-    background-color: rgba(232, 70, 70, 0.4);
+    background-color: rgba(232, 70, 70, 0.2);
     transform: scale(1.1);
 }
 
 .secondary-button {
     display: inline-block;
-    background-color: var(--sand-color);
-    color: var(--secondary-color);
+    background-color: #FFF8FB;
+    color: var(--primary-dark);
     padding: 10px 20px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    border: 2px solid var(--secondary-color);
+    border: 2px solid var(--primary-color);
     transition: background-color 0.3s, transform 0.2s;
     margin-right: 10px;
     cursor: pointer;
@@ -383,7 +436,7 @@ nav ul li a:hover {
 }
 
 .secondary-button:hover {
-    background-color: var(--primary-color);
+    background-color: #FFE9F3;
     transform: translateY(-2px);
 }
 
@@ -399,21 +452,21 @@ nav ul li a:hover {
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
     font-size: 1rem;
-    border: 2px solid #C62F2F;
-    box-shadow: 0 3px 0 #C62F2F;
+    border: 2px solid #7AB03A;
+    box-shadow: 0 3px 0 #7AB03A;
     position: relative;
     top: 0;
 }
 
 .primary-button:hover {
-    background-color: #FF5252;
+    background-color: #9AD74E;
     transform: translateY(-2px);
-    box-shadow: 0 5px 0 #C62F2F;
+    box-shadow: 0 5px 0 #7AB03A;
 }
 
 .primary-button:active {
     top: 3px;
-    box-shadow: 0 0 0 #C62F2F;
+    box-shadow: 0 0 0 #7AB03A;
 }
 
 .form-actions {
@@ -425,17 +478,17 @@ nav ul li a:hover {
 /* Preferences Styles */
 .preferences-section {
     margin-bottom: 30px;
-    background-color: var(--sand-color);
+    background-color: #FFF8FB;
     padding: 20px;
-    border-radius: 10px;
-    border: 2px dashed var(--primary-color);
+    border-radius: 15px;
+    border: 2px solid var(--primary-color);
 }
 
 .preferences-section h3 {
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     margin-bottom: 15px;
     font-size: 1.3rem;
-    text-shadow: 1px 1px 0 white;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 }
 
 .meal-break {
@@ -443,13 +496,13 @@ nav ul li a:hover {
     padding: 15px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     border: 2px solid var(--primary-color);
 }
 
 .meal-break h4 {
     margin-bottom: 15px;
-    color: var(--secondary-color);
+    color: var(--primary-dark);
 }
 
 /* Schedule Display Styles */
@@ -458,11 +511,11 @@ nav ul li a:hover {
 }
 
 .schedule-card h2 {
-    color: var(--secondary-color);
+    color: var(--primary-dark);
     margin-bottom: 20px;
     font-size: 1.8rem;
     text-align: center;
-    text-shadow: 1px 1px 0 var(--primary-color);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
 }
 
 .schedule-controls {
@@ -475,17 +528,17 @@ nav ul li a:hover {
 .control-button {
     background-color: var(--secondary-color);
     color: white;
-    border: 2px solid #C62F2F;
+    border: 2px solid #7AB03A;
     padding: 8px 15px;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+    font-family: 'Quicksand', 'Segoe UI', sans-serif;
     font-weight: bold;
 }
 
 .control-button:hover {
-    background-color: #FF5252;
+    background-color: #9AD74E;
     transform: translateY(-2px);
 }
 
@@ -498,7 +551,7 @@ nav ul li a:hover {
 .current-date {
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--secondary-color);
+    color: white;
     background-color: var(--primary-color);
     padding: 5px 15px;
     border-radius: 20px;
@@ -514,27 +567,19 @@ nav ul li a:hover {
 }
 
 .timeline::before {
-    content: '';
+    content: '🌸';
     position: absolute;
     left: -12px;
     top: 0;
-    width: 20px;
-    height: 20px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    border: 2px solid white;
+    font-size: 20px;
 }
 
 .timeline::after {
-    content: '';
+    content: '🌸';
     position: absolute;
     left: -12px;
     bottom: 0;
-    width: 20px;
-    height: 20px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    border: 2px solid white;
+    font-size: 20px;
 }
 
 .timeline-item {
@@ -549,40 +594,35 @@ nav ul li a:hover {
     height: calc((var(--end-time) - var(--start-time)) * 50px);
     min-height: 40px;
     transition: all 0.3s;
-    border: 2px solid #CCA400;
+    border: 2px solid #A5D6B0;
 }
 
 .timeline-item:hover {
     transform: translateX(5px) scale(1.02);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .timeline-item.break {
     background-color: var(--break-color);
-    border-color: #E87C50;
+    border-color: #FFABC8;
 }
 
 .timeline-item.fixed {
     background-color: var(--fixed-color);
-    border-color: #CCA400;
+    border-color: #A5D6B0;
 }
 
 .timeline-item.variable {
     background-color: var(--variable-color);
-    border-color: #007A52;
-    color: white;
+    border-color: #88BDEC;
 }
 
 .timeline-item::before {
-    content: '';
+    content: '🌷';
     position: absolute;
     left: -26px;
     top: 10px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: var(--secondary-color);
-    border: 2px solid white;
+    font-size: 16px;
 }
 
 .timeline-content {
@@ -609,7 +649,7 @@ nav ul li a:hover {
     text-align: center;
     color: var(--light-text);
     font-style: italic;
-    background-color: var(--sand-color);
+    background-color: #FFF8FB;
     border-radius: 10px;
     margin-top: 20px;
     border: 2px dashed var(--primary-color);
@@ -628,7 +668,7 @@ footer {
     color: var(--text-color);
     border-top: 2px dashed var(--primary-color);
     font-size: 0.9rem;
-    background-color: var(--sand-color);
+    background-color: #FFF8FB;
 }
 
 /* Responsive Styles */
@@ -652,17 +692,28 @@ footer {
     }
 }
 
-/* SpongeBob Theme Specific Animations */
+/* Flowery Theme Specific Animations */
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
-.cta-button {
-    animation: float 3s ease-in-out infinite;
+@keyframes bloom {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.7; }
 }
 
-.step-number {
-    animation: float 2s ease-in-out infinite;
+/* Flower Specific Elements */
+.flower-container {
+    text-align: center;
+    margin: 15px auto;
+}
+
+.flower-image {
+    font-size: 70px;
+    margin: 10px auto;
+    animation: bloom 4s ease-in-out infinite;
+    display: inline-block;
 }

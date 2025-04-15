@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planora - Variable Tasks</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Planora</h1>
-            <p class="tagline">Your Smart Daily Scheduler</p>
+            <p class="tagline">Your Blooming Schedule Planner</p>
             <nav>
                 <ul>
                     <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -21,7 +22,10 @@
         <div class="main-content">
             <div class="form-card">
                 <h2>Step 2: Variable Tasks</h2>
-                <p class="form-description">Enter tasks that occur on specific dates or times, like classes, meetings, or submission deadlines.</p>
+                <div class="flower-container">
+                    <div class="flower-image">🌺</div>
+                </div>
+                <p class="form-description">Enter tasks that occur on specific dates or times, like classes, meetings, or special events in your garden of activities.</p>
                 
                 <form action="{{ url_for('variable_tasks') }}" method="post" id="variable-tasks-form">
                     <div class="form-progress">
@@ -64,7 +68,7 @@
         </div>
         
         <footer>
-            <p>&copy; 2025 Planora</p>
+            <p>&copy; 2025 Planora - Helping your productivity blossom</p>
         </footer>
     </div>
 

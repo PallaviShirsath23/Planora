@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planora - Smart Daily Scheduler</title>
+    <title>Planora - Flowery Schedule Planner</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Planora</h1>
-            <p class="tagline">Your Smart Daily Scheduler</p>
+            <p class="tagline">Your Blooming Schedule Planner</p>
         </header>
         
         <div class="main-content">
             <div class="welcome-card">
                 <h2>Welcome to Planora!</h2>
-                <p>Planora helps you balance your daily fixed commitments (like study hours) with variable tasks (like classes and submissions).</p>
+                <div class="flower-container">
+                    <div class="flower-image">🌸</div>
+                </div>
+                <p>Let your productivity bloom! Planora helps you organize your day with beauty and efficiency.</p>
                 <p>Create your optimized daily schedule in 3 simple steps:</p>
                 
                 <div class="steps">
@@ -24,7 +28,7 @@
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <h3>Enter Fixed Tasks</h3>
-                            <p>Tasks you need to do for a fixed duration every day (e.g., 6 hours of study)</p>
+                            <p>Tasks you need to do for a fixed duration every day (like studying, exercise, or work)</p>
                         </div>
                     </div>
                     
@@ -32,7 +36,7 @@
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <h3>Add Variable Tasks</h3>
-                            <p>Tasks with specific dates/times (e.g., classes, submissions)</p>
+                            <p>Tasks with specific dates/times (like classes, meetings, or events)</p>
                         </div>
                     </div>
                     
@@ -46,13 +50,13 @@
                 </div>
                 
                 <div class="cta-container">
-                    <a href="{{ url_for('fixed_tasks') }}" class="cta-button">Get Started</a>
+                    <a href="{{ url_for('fixed_tasks') }}" class="cta-button">Grow Your Schedule</a>
                 </div>
             </div>
         </div>
         
         <footer>
-            <p>&copy; 2025 Planora</p>
+            <p>&copy; 2025 Planora - Helping your productivity blossom</p>
         </footer>
     </div>
 

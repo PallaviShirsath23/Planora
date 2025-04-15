@@ -254,21 +254,40 @@ def schedule_fixed_tasks(fixed_tasks, available_slots, variable_tasks, break_tim
     daily_schedule = []
     
     # Add all breaks and fixed-time variable tasks to the schedule
-    daily_schedule.extend(break_times)
-    daily_schedule.extend([t for t in variable_tasks if t.get('fixed_time', False)])
+    for break_item in break_times:
+        daily_schedule.append({
+            'name': break_item['name'],
+            'start': break_item['start'],
+            'end': break_item['end'],
+            'type': 'break'
+        })
     
-    # Sort available slots by start time
-    available_slots.sort(key=lambda x: x['start'])
+    for task in variable_tasks:
+        if task.get('fixed_time', False):
+            daily_schedule.append({
+                'name': task['name'],
+                'start': task['start'],
+                'end': task['end'],
+                'type': 'variable'
+            })
+    
+    # Sort available slots by start time and make a deep copy
+    available_slots = sorted(available_slots, key=lambda x: x['start'])
+    working_slots = []
+    for slot in available_slots:
+        working_slots.append({
+            'start': slot['start'],
+            'end': slot['end']
+        })
     
     # Calculate total available minutes
-    total_available_minutes = sum((slot['end'] - slot['start']).total_seconds() / 60 for slot in available_slots)
+    total_available_minutes = sum((slot['end'] - slot['start']).total_seconds() / 60 for slot in working_slots)
     
-    # Calculate total fixed task minutes
+    # Calculate total fixed task minutes needed
     total_fixed_task_minutes = sum(task['hours'] * 60 for task in fixed_tasks)
     
-    # Check if there's enough time
-    if total_fixed_task_minutes > total_available_minutes:
-        # Not enough time, scale down proportionally
+    # Check if there's enough time and adjust if needed
+    if total_fixed_task_minutes > total_available_minutes and total_available_minutes > 0:
         scale_factor = total_available_minutes / total_fixed_task_minutes
         for task in fixed_tasks:
             task['adjusted_minutes'] = task['hours'] * 60 * scale_factor
@@ -276,55 +295,50 @@ def schedule_fixed_tasks(fixed_tasks, available_slots, variable_tasks, break_tim
         for task in fixed_tasks:
             task['adjusted_minutes'] = task['hours'] * 60
     
-    # Allocate fixed tasks to available slots
-    current_task_index = 0
-    current_task_minutes_left = fixed_tasks[0]['adjusted_minutes'] if fixed_tasks else 0
-    current_task_name = fixed_tasks[0]['name'] if fixed_tasks else ""
-    
-    for slot in available_slots:
-        slot_minutes = (slot['end'] - slot['start']).total_seconds() / 60
+    # Process each fixed task
+    for task_index, task in enumerate(fixed_tasks):
+        remaining_minutes = task['adjusted_minutes']
+        task_name = task['name']
         
-        while slot_minutes > 0 and current_task_index < len(fixed_tasks):
-            if current_task_minutes_left <= slot_minutes:
-                # We can fit the entire remaining task in this slot
-                task_end_time = slot['start'] + timedelta(minutes=current_task_minutes_left)
+        # Go through each slot until we've allocated all minutes for this task
+        slot_index = 0
+        while remaining_minutes > 0 and slot_index < len(working_slots):
+            current_slot = working_slots[slot_index]
+            
+            # Check if the slot has any time left
+            slot_duration = (current_slot['end'] - current_slot['start']).total_seconds() / 60
+            
+            if slot_duration <= 0:
+                # This slot is already filled, move to next slot
+                slot_index += 1
+                continue
+            
+            # Determine how much of this task can fit in the current slot
+            minutes_to_use = min(remaining_minutes, slot_duration)
+            
+            if minutes_to_use <= 0:
+                slot_index += 1
+                continue
                 
-                daily_schedule.append({
-                    'name': current_task_name,
-                    'start': slot['start'],
-                    'end': task_end_time,
-                    'type': 'fixed'
-                })
-                
-                # Update slot start time and remaining minutes
-                slot['start'] = task_end_time
-                slot_minutes -= current_task_minutes_left
-                
-                # Move to next task
-                current_task_index += 1
-                if current_task_index < len(fixed_tasks):
-                    current_task_minutes_left = fixed_tasks[current_task_index]['adjusted_minutes']
-                    current_task_name = fixed_tasks[current_task_index]['name']
-                else:
-                    # No more tasks to schedule
-                    break
-            else:
-                # The task doesn't fit entirely in this slot
-                daily_schedule.append({
-                    'name': current_task_name,
-                    'start': slot['start'],
-                    'end': slot['end'],
-                    'type': 'fixed'
-                })
-                
-                # Update remaining task minutes
-                current_task_minutes_left -= slot_minutes
-                slot_minutes = 0
-    
-    # Add variable tasks that don't have fixed times
-    flexible_tasks = [t for t in variable_tasks if not t.get('fixed_time', False)]
-    
-    # TODO: Implement logic to schedule flexible variable tasks
+            task_end_time = current_slot['start'] + timedelta(minutes=minutes_to_use)
+            
+            # Add this segment of the task to the schedule
+            daily_schedule.append({
+                'name': task_name,
+                'start': current_slot['start'],
+                'end': task_end_time,
+                'type': 'fixed'
+            })
+            
+            # Update the slot's remaining time
+            current_slot['start'] = task_end_time
+            
+            # Update remaining task minutes
+            remaining_minutes -= minutes_to_use
+            
+            # If the slot is now full, move to the next slot
+            if (current_slot['end'] - current_slot['start']).total_seconds() <= 0:
+                slot_index += 1
     
     # Sort the final schedule by start time
     daily_schedule.sort(key=lambda x: x['start'])

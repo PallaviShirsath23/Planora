@@ -5,12 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planora - Your Schedule</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles to fix button visibility */
+        .timeline {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 30px;
+        }
+        
+        .schedule-actions {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 15px 0;
+            margin-top: 20px;
+            border-top: 1px dashed var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .schedule-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Planora</h1>
-            <p class="tagline">Your Smart Daily Scheduler</p>
+            <p class="tagline">Your Blooming Schedule Planner</p>
             <nav>
                 <ul>
                     <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -20,7 +46,10 @@
         
         <div class="main-content">
             <div class="schedule-card">
-                <h2>Your Optimized Schedule</h2>
+                <h2>Your Blooming Schedule</h2>
+                <div class="flower-container">
+                    <div class="flower-image">🌻</div>
+                </div>
                 
                 <div class="form-progress">
                     <div class="progress-step completed">Fixed Tasks</div>
@@ -29,7 +58,13 @@
                     <div class="progress-step completed">Schedule</div>
                 </div>
                 
-                <div class="schedule-controls">
+                <!-- Moved buttons up here for better visibility -->
+                <div class="schedule-actions" style="position: static; margin: 20px 0; background: none; border: none;">
+                    <a href="{{ url_for('preferences') }}" class="secondary-button">Back to Preferences</a>
+                    <a href="{{ url_for('index') }}" class="primary-button">Create New Schedule</a>
+                </div>
+                
+                <div class="schedule-navigation">
                     <button id="prev-day" class="control-button">Previous Day</button>
                     <div id="current-date" class="current-date"></div>
                     <button id="next-day" class="control-button">Next Day</button>
@@ -54,12 +89,13 @@
                                     {% endfor %}
                                 </div>
                             {% else %}
-                                <div class="no-tasks">No tasks scheduled for this day.</div>
+                                <div class="no-tasks">No tasks scheduled for this day. Plant some activities to see them bloom!</div>
                             {% endif %}
                         </div>
                     {% endfor %}
                 </div>
                 
+                <!-- Additional copy of buttons at the bottom for convenience -->
                 <div class="schedule-actions">
                     <a href="{{ url_for('preferences') }}" class="secondary-button">Back to Preferences</a>
                     <a href="{{ url_for('index') }}" class="primary-button">Create New Schedule</a>
@@ -68,7 +104,7 @@
         </div>
         
         <footer>
-            <p>&copy; 2025 Planora</p>
+            <p>&copy; 2025 Planora - Helping your productivity blossom</p>
         </footer>
     </div>
 
